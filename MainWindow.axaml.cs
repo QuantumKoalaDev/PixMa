@@ -5,6 +5,9 @@ using Avalonia.Media;
 
 namespace PixelPaintApp;
 
+using PixelPaintApp.View;
+using SkiaSharp;
+
 public partial class MainWindow : Window
 {
     public MainWindow()
@@ -66,9 +69,14 @@ public partial class MainWindow : Window
     //         BeginResizeDrag(WindowEdge.North, e);
     // }
     
-    private void Black_Click(object sender, RoutedEventArgs e) => Canvas.SetColor(Colors.Black);
-    private void Red_Click(object sender, RoutedEventArgs e) => Canvas.SetColor(Colors.Red);
-    private void Green_Click(object sender, RoutedEventArgs e) => Canvas.SetColor(Colors.Green);
-    private void Blue_Click(object sender, RoutedEventArgs e) => Canvas.SetColor(Colors.Blue);
-    private void Eraser_Click(object sender, RoutedEventArgs e) => Canvas.SetColor(Colors.Transparent);
+    private void Black_Click(object sender, RoutedEventArgs e) => MyCanvas.SetColor(Colors.Black);
+    private void Red_Click(object sender, RoutedEventArgs e) => MyCanvas.SetColor(Colors.Red);
+    private void Green_Click(object sender, RoutedEventArgs e) => MyCanvas.SetColor(Colors.Green);
+    private void Blue_Click(object sender, RoutedEventArgs e) => MyCanvas.SetColor(Colors.Blue);
+    private void Eraser_Click(object sender, RoutedEventArgs e) => MyCanvas.SetColor(Colors.Transparent);
+    private void PixelSize1_Click(object sender, RoutedEventArgs e) => MyCanvas.SetBrushSize(1);
+    private void PixelSize4_Click(object sender, RoutedEventArgs e) => MyCanvas.SetBrushSize(4);
+    private void PixelSize9_Click(object sender, RoutedEventArgs e) => MyCanvas.SetBrushSize(9);
+    private void ToggleGridLines_Click(object sender, RoutedEventArgs e) => MyCanvas.ToggleGridLines();
+    private void Save_Click(object sender, RoutedEventArgs e) => MyCanvas.Save();
 }

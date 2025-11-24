@@ -1,0 +1,4 @@
+This release includes third-party libraries:
+
+- Avalonia 11.3.6 — MIT License (https://avaloniaui.net)
+- SixLabors.ImageSharp 3.1.12 — Apache 2.0 (https://github.com/SixLabors/ImageSharp/blob/main/LICENSE)
