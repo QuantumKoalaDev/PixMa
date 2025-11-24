@@ -153,7 +153,7 @@
                                 Margin="0,0,0,5"
                                 >
                         <Button Content="Pinsel" />
-                        <Button Content="Radierer" />
+                        <Button Content="Radierer" Click="Eraser_Click" />
 						<CheckBox Content="Grid Lines" IsChecked="True" Checked="ToggleGridLines_Click" Unchecked="ToggleGridLines_Click" />
 						<Button Content="Save file" Click="Save_Click" />
                     </StackPanel>

@@ -6,8 +6,6 @@ using Avalonia.Input;
 using Avalonia.Media;
 using PixelPaintApp.UIAdapter;
 using PixelPaintApp.Viewmodel;
-using System;
-using System.Runtime.CompilerServices;
 
 public class PixelCanvas : Control
 {
@@ -175,7 +173,3 @@ public class PixelCanvas : Control
     }
 
 }
-
-// Brushes:
-// 1px, 4px, 9 px
-// Rasterlinien zum ein und ausschalten

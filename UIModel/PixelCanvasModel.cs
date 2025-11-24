@@ -13,7 +13,6 @@ namespace PixelPaintApp.UIModel
         
         public CanvasShape Shape { get; init; }
 
-        // rows => height aussen, cols => width innen
         public PixelCanvasModel(uint height, uint width)
         {
             Shape = new CanvasShape(width, height);
