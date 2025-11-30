@@ -24,7 +24,7 @@
         }
 
         public static readonly PixelColor Transparent = new(0, 0, 0, 0);
-        public static readonly PixelColor Red = new(255, 0, 0, 0);
+        public static readonly PixelColor Red = new(255, 0, 0);
         public static readonly PixelColor Green = new(0, 255, 0);
         public static readonly PixelColor Blue = new(0, 0, 255);
         public static readonly PixelColor Black = new(0, 0, 0);
