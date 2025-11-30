@@ -1,0 +1,19 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="PixelPaintApp.View.CustomControls.ColorBar"
+             Width="30" Height="250">
+    <Border x:Name="GradientBorder"
+            CornerRadius="4">
+		<Border.Background>
+			<LinearGradientBrush StartPoint="50%,0%" EndPoint="50%,100%">
+				<GradientStop Color="Magenta" Offset="0"/>
+				<GradientStop Color="Blue" Offset="0.17"/>
+				<GradientStop Color="Cyan" Offset="0.34"/>
+				<GradientStop Color="Green" Offset="0.51"/>
+				<GradientStop Color="Yellow" Offset="0.68"/>
+				<GradientStop Color="Orange" Offset="0.85"/>
+				<GradientStop Color="Red" Offset="1.0"/>
+			</LinearGradientBrush>
+		</Border.Background>
+    </Border>
+</UserControl>

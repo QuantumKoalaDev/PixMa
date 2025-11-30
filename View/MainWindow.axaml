@@ -1,0 +1,186 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+		xmlns:custom="clr-namespace:PixelPaintApp.View.CustomControls"
+		xmlns:viewmodels="clr-namespace:PixelPaintApp.Viewmodel"
+        xmlns:local="clr-namespace:PixelPaintApp.View"
+        x:Class="PixelPaintApp.View.MainWindow"
+        Title="PixelPaint"
+        Width="800" Height="600"
+        SystemDecorations="None"
+        ExtendClientAreaToDecorationsHint="True"
+        ExtendClientAreaChromeHints="NoChrome"
+		x:DataType="viewmodels:PixelCanvasViewModel"
+        >
+    
+    <Window.Styles>
+        <Style Selector="Button">
+            <Setter Property="Background" Value="White" />
+            <Setter Property="Foreground" Value="Black" />
+            <Setter Property="BorderBrush" Value="Black" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="Margin" Value="5" />
+            
+        </Style>
+        
+        <!-- Titelbuttons (z. B. "Vor", "Zurück") -->
+        <Style Selector="Button.title-button">
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Background" Value="#8c8b8b"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Padding" Value="5,0"/>
+        </Style>
+
+        <!-- Fenstersteuerungsbuttons (—, □, ✕) -->
+        <Style Selector="Button.window-button">
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Background" Value="#8c8b8b"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Width" Value="40"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+        </Style>
+        
+        <Style Selector="Button.brush-size">
+            <Setter Property="Height" Value="30" />
+            <Setter Property="Width" Value="30" />
+            <Setter Property="HorizontalContentAlignment" Value="Center" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="Transitions">
+                <Transitions>
+                    <BrushTransition Property="BorderBrush" Duration="0:0:0.3"/>
+                </Transitions>
+            </Setter>
+        </Style>
+        
+        
+
+    </Window.Styles>
+    
+    <Window.Resources>
+        <Color x:Key="MainColor">#ffd700</Color>
+        
+        <SolidColorBrush x:Key="MainColorBrush" Color="{StaticResource MainColor}"></SolidColorBrush>
+    </Window.Resources>
+
+    
+    <Border Background="#8c8b8b">
+    <Grid>
+        <!-- === Layout-Struktur === -->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="35"/>  <!-- Titelzeile -->
+            <RowDefinition Height="*"/>   <!-- Inhalt -->
+        </Grid.RowDefinitions>
+
+        <!-- === TITELLEISTE === -->
+        <DockPanel Grid.Row="0"
+                   Background="#8c8b8b"
+                   Height="35"
+                   PointerPressed="TitleBar_OnPointerPressed">
+
+            <!-- Menü -->
+            <Menu DockPanel.Dock="Left">
+                <MenuItem Header="_Datei">
+                    <MenuItem Header="Speichern" Click="Save_Click" />
+                    <MenuItem Header="Öffnen..." />
+                    <!--<MenuItem Header="Speichern" Command="{Binding SaveCommand}" />-->
+                    <MenuItem Header="Beenden" />
+                </MenuItem>
+            </Menu>
+
+            <!-- Navigationsbuttons -->
+            <StackPanel Orientation="Horizontal" DockPanel.Dock="Left">
+                <Button Classes="title-button" Content="Vor"/>
+                <Button Classes="title-button" Content="Zurück"/>
+            </StackPanel>
+
+            <!-- Fenstersteuerung -->
+            <StackPanel Orientation="Horizontal"
+                        HorizontalAlignment="Right"
+                        DockPanel.Dock="Right">
+                <Button Classes="window-button" Content="—" Click="Minimize_Click"/>
+                <Button Classes="window-button" Content="□" Click="Maximize_Click"/>
+                <Button Classes="window-button" Content="✕" Click="Close_Click"/>
+            </StackPanel>
+        </DockPanel>
+
+        <!-- === HAUPTBEREICH === -->
+        <Grid Grid.Row="1" Background="{StaticResource MainColorBrush}">
+
+            <!-- Unsichtbare Resize-Zonen -->
+            <Border HorizontalAlignment="Right" Width="10"
+                    Background="Transparent"
+                    Cursor="SizeWestEast"
+                    PointerPressed="Resize_Right"/>
+            <Border HorizontalAlignment="Left" Width="10"
+                    Background="Transparent"
+                    Cursor="SizeWestEast"
+                    PointerPressed="Resize_Left"/>
+            <Border VerticalAlignment="Bottom" Height="10"
+                    Background="Transparent"
+                    Cursor="SizeNorthSouth"
+                    PointerPressed="Resize_Bottom"/>
+
+            <!-- Inhaltsbereich -->
+            <DockPanel Margin="5">
+                <!-- Farbpalette -->
+                <StackPanel Orientation="Vertical"
+                            DockPanel.Dock="Left"
+                            Margin="0,0,10,0">
+					
+					<!--<Border x:Name="ColorBar"
+							Width="30"
+							Height="250"
+							CornerRadius="4"
+							PointerPressed="OnPick_Click">
+						<Border.Background>
+							<LinearGradientBrush StartPoint="50%,0%" EndPoint="50%,100%">
+								<GradientStop Color="Magenta" Offset="0"/>
+								<GradientStop Color="Blue" Offset="0.17"/>
+								<GradientStop Color="Cyan" Offset="0.34"/>
+								<GradientStop Color="Green" Offset="0.51"/>
+								<GradientStop Color="Yellow" Offset="0.68"/>
+								<GradientStop Color="Orange" Offset="0.85"/>
+								<GradientStop Color="Red" Offset="1.0"/>
+							</LinearGradientBrush>
+						</Border.Background>
+					</Border>-->
+					<custom:ColorBar x:Name="MyColorBar" Width="30" Height="250"/>
+
+					<!-- Button zum öffnen der Farbcodeeingabe -->
+                    <Button Width="30" Height="30" Margin="5, 20, 5, 5" />
+                    
+                    <!-- Pinsel stärke auswählen -->
+                    <Button Content="1" Classes="brush-size" Margin="5, 20, 5, 5" Click="PixelSize1_Click" />
+                    <Button Content="4" Classes="brush-size" Click="PixelSize4_Click"/>
+                    <Button Content="9" Classes="brush-size" Click="PixelSize9_Click"/>
+                </StackPanel>
+
+                <!-- Werkzeugleiste + Canvas -->
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <StackPanel Orientation="Horizontal"
+                                Background="{StaticResource MainColorBrush}"
+                                Grid.Row="0"
+                                Margin="0,0,0,5"
+                                >
+                        <Button Content="Pinsel" />
+                        <Button Content="Radierer" Click="Eraser_Click" />
+						<CheckBox Content="Grid Lines" IsChecked="True" Checked="ToggleGridLines_Click" Unchecked="ToggleGridLines_Click" />
+						<Button Content="Save file" Click="Save_Click" />
+                    </StackPanel>
+
+                    <custom:PixelCanvas x:Name="MyCanvas"
+                                       Grid.Row="1"
+                                       Pixel="10"
+									   />
+                </Grid>
+            </DockPanel>
+        </Grid>
+    </Grid>
+</Border>
+
+</Window>
