@@ -1,12 +1,17 @@
+using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Controls.Primitives;
 using Avalonia.Input;
 using Avalonia.Interactivity;
 using Avalonia.Media;
+using PixelPaintApp.UIAdapter;
+using PixelPaintApp.View.CustomControls;
 
 namespace PixelPaintApp.View;
 
 public partial class MainWindow : Window
 {
+
     public MainWindow()
     {
         InitializeComponent();
@@ -74,41 +79,40 @@ public partial class MainWindow : Window
     private void PixelSize9_Click(object sender, RoutedEventArgs e) => MyCanvas.SetBrushSize(9);
     private void ToggleGridLines_Click(object sender, RoutedEventArgs e) => MyCanvas.ToggleGridLines();
     private void Save_Click(object sender, RoutedEventArgs e) => MyCanvas.Save();
-    //private void OnPick_Click(object? sender, PointerPressedEventArgs e)
-    //{
-    //    Point pos = e.GetPosition(ColorBar);
+    private void ColorInput_Click(object sender, RoutedEventArgs e)
+    {
+        ShowColorInputDialog();
+    }
 
-    //    double t = Math.Clamp(pos.Y / ColorBar.Bounds.Height, 0, 1);
 
-    //    var stops = new[]
-    //    {
-    //        (Offset: 0, Color: Colors.Magenta),
-    //        (Offset: 0.17, Color: Colors.Blue),
-    //        (Offset: 0.34, Color: Colors.Cyan),
-    //        (Offset: 0.51, Color: Colors.Green),
-    //        (Offset: 0.68, Color: Colors.Yellow),
-    //        (Offset: 0.85, Color: Colors.Orange),
-    //        (Offset: 1.00, Color: Colors.Red)
-    //    };
+    private async void ShowColorInputDialog()
+    {
+        Window dialog = new Window
+        {
+            Title = "Farbcode eigeben",
+            Width = 200,
+            Height = 150,
+            WindowStartupLocation = WindowStartupLocation.CenterOwner,
+            CanResize = false,
+            SystemDecorations = SystemDecorations.None,
+        };
 
-    //    (double Offset, Color Color) left = stops[0], right = stops[^1];
-    //    for (int i = 0; i < stops.Length - 1; i++)
-    //    {
-    //        if (t >= stops[i].Offset && t <= stops[i + 1].Offset)
-    //        {
-    //            left = stops[i];
-    //            right = stops[i + 1];
-    //            break;
-    //        }
-    //    }
+        TextBox textbox = new TextBox { Width = 150, Watermark = "#RRGGBB" };
+        Button okButton = new Button { Content = "ok" };
+        okButton.Click += (_, _) => dialog.Close(textbox.Text);
 
-    //    double localT = (t - left.Offset) / (right.Offset - left.Offset);
+        dialog.Content = new StackPanel
+        {
+            Orientation = Avalonia.Layout.Orientation.Vertical,
+            Margin = new Thickness(10),
+            Children = { textbox, okButton }
+        };
 
-    //    byte r = (byte)(left.Color.R + (right.Color.R - left.Color.R) * localT);
-    //    byte g = (byte)(left.Color.G + (right.Color.G - left.Color.G) * localT);
-    //    byte b = (byte)(left.Color.B + (right.Color.B - left.Color.B) * localT);
+        string? result = await dialog.ShowDialog<string>(this);
 
-    //    Color color = Color.FromRgb(r, g, b);
-    //    MyCanvas.SetColor(color);
-    //}
+        if (!string.IsNullOrEmpty(result))
+        {
+            MyCanvas.SetColor(AvaloniaAdapter.ConvertToAvaloniaColor(Domain.PixelColor.FromHex(result)));
+        }
+    }
 }

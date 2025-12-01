@@ -11,7 +11,6 @@
         ExtendClientAreaChromeHints="NoChrome"
 		x:DataType="viewmodels:PixelCanvasViewModel"
         >
-    
     <Window.Styles>
         <Style Selector="Button">
             <Setter Property="Background" Value="White" />
@@ -51,9 +50,6 @@
                 </Transitions>
             </Setter>
         </Style>
-        
-        
-
     </Window.Styles>
     
     <Window.Resources>
@@ -126,28 +122,11 @@
                 <StackPanel Orientation="Vertical"
                             DockPanel.Dock="Left"
                             Margin="0,0,10,0">
-					
-					<!--<Border x:Name="ColorBar"
-							Width="30"
-							Height="250"
-							CornerRadius="4"
-							PointerPressed="OnPick_Click">
-						<Border.Background>
-							<LinearGradientBrush StartPoint="50%,0%" EndPoint="50%,100%">
-								<GradientStop Color="Magenta" Offset="0"/>
-								<GradientStop Color="Blue" Offset="0.17"/>
-								<GradientStop Color="Cyan" Offset="0.34"/>
-								<GradientStop Color="Green" Offset="0.51"/>
-								<GradientStop Color="Yellow" Offset="0.68"/>
-								<GradientStop Color="Orange" Offset="0.85"/>
-								<GradientStop Color="Red" Offset="1.0"/>
-							</LinearGradientBrush>
-						</Border.Background>
-					</Border>-->
 					<custom:ColorBar x:Name="MyColorBar" Width="30" Height="250"/>
 
-					<!-- Button zum öffnen der Farbcodeeingabe -->
-                    <Button Width="30" Height="30" Margin="5, 20, 5, 5" />
+					 <!--Button zum öffnen der Farbcodeeingabe-->
+					<Button Width="30" Height="30" Margin="5, 20, 5, 5" Click="ColorInput_Click" />
+
                     
                     <!-- Pinsel stärke auswählen -->
                     <Button Content="1" Classes="brush-size" Margin="5, 20, 5, 5" Click="PixelSize1_Click" />
