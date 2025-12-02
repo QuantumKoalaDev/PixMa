@@ -1,4 +1,4 @@
-namespace  PixelPaintApp.View;
+namespace  PixelPaintApp.View.CustomControls;
 
 using Avalonia;
 using Avalonia.Controls;
