@@ -18,18 +18,15 @@
             <Setter Property="BorderBrush" Value="Black" />
             <Setter Property="BorderThickness" Value="1" />
             <Setter Property="Margin" Value="5" />
-            
         </Style>
-        
-        <!-- Titelbuttons (z. B. "Vor", "Zurück") -->
-        <Style Selector="Button.title-button">
+
+		<Style Selector="Button.title-button">
             <Setter Property="BorderThickness" Value="0"/>
             <Setter Property="Background" Value="#8c8b8b"/>
             <Setter Property="Foreground" Value="White"/>
             <Setter Property="Padding" Value="5,0"/>
         </Style>
-
-        <!-- Fenstersteuerungsbuttons (—, □, ✕) -->
+		
         <Style Selector="Button.window-button">
             <Setter Property="BorderThickness" Value="0"/>
             <Setter Property="Background" Value="#8c8b8b"/>
@@ -63,8 +60,8 @@
     <Grid>
         <!-- === Layout-Struktur === -->
         <Grid.RowDefinitions>
-            <RowDefinition Height="35"/>  <!-- Titelzeile -->
-            <RowDefinition Height="*"/>   <!-- Inhalt -->
+            <RowDefinition Height="35"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
         <!-- === TITELLEISTE === -->
@@ -78,7 +75,7 @@
                 <MenuItem Header="_Datei">
                     <MenuItem Header="Speichern" Click="Save_Click" />
                     <MenuItem Header="Öffnen..." />
-                    <!--<MenuItem Header="Speichern" Command="{Binding SaveCommand}" />-->
+                  
                     <MenuItem Header="Beenden" />
                 </MenuItem>
             </Menu>
@@ -101,7 +98,6 @@
 
         <!-- === HAUPTBEREICH === -->
         <Grid Grid.Row="1" Background="{StaticResource MainColorBrush}">
-
             <!-- Unsichtbare Resize-Zonen -->
             <Border HorizontalAlignment="Right" Width="10"
                     Background="Transparent"

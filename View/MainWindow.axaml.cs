@@ -1,6 +1,4 @@
-using Avalonia;
-using Avalonia.Controls;
-using Avalonia.Controls.Primitives;
+﻿using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Interactivity;
 using Avalonia.Media;
@@ -84,33 +82,13 @@ public partial class MainWindow : Window
         ShowColorInputDialog();
     }
 
-
     private async void ShowColorInputDialog()
     {
-        Window dialog = new Window
-        {
-            Title = "Farbcode eigeben",
-            Width = 200,
-            Height = 150,
-            WindowStartupLocation = WindowStartupLocation.CenterOwner,
-            CanResize = false,
-            SystemDecorations = SystemDecorations.None,
-        };
-
-        TextBox textbox = new TextBox { Width = 150, Watermark = "#RRGGBB" };
-        Button okButton = new Button { Content = "ok" };
-        okButton.Click += (_, _) => dialog.Close(textbox.Text);
-
-        dialog.Content = new StackPanel
-        {
-            Orientation = Avalonia.Layout.Orientation.Vertical,
-            Margin = new Thickness(10),
-            Children = { textbox, okButton }
-        };
+        ColorInputDialog dialog = new();
 
         string? result = await dialog.ShowDialog<string>(this);
-
-        if (!string.IsNullOrEmpty(result))
+        
+        if (!string.IsNullOrWhiteSpace(result))
         {
             MyCanvas.SetColor(AvaloniaAdapter.ConvertToAvaloniaColor(Domain.PixelColor.FromHex(result)));
         }
